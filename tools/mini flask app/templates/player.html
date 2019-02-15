@@ -3,21 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ player_name }}</title>
-    <style>
-        body {
-            font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
-        }
-    </style>
+    {% include 'libs.html' %}
 </head>
 <body>
-<h1>
-    {{ player_name }}
-</h1>
-<p>Exp: {{ player_xp }}</p>
-<p>HP: {{ player_hp }}</p>
-<p>Food: {{ player_food }}</p>
-<p>OP: {{ player_op }}</p>
-<p>UUID: {{ player_uuid }}</p>
-<p>Coords: {{ player_coords }}</p>
+<div class="container">
+    <h1>
+        {{ player_name }}
+    </h1>
+    <p>Exp: {{ player_xp }}</p>
+    <p>HP: {{ player_hp }}</p>
+    <p>Food: {{ player_food }}</p>
+    <p>OP: {{ player_op }}</p>
+    <p>UUID: {{ player_uuid }}</p>
+    <p>Coords: <span id="coords">Loading...</span></p>
+</div>
 </body>
+<script>
+    function updaate_coords() {
+        jQuery.ajax({
+            url: "{{ url_for('board_plain_coords', name=player_name) }}",
+            success: function (payload) {
+                console.log(payload);
+                $('#coords').text(payload['x'] + ', ' + payload['y'] + ', ' + payload['z']  + ', ' + payload['pitch'])
+            }
+        })
+    }
+
+    window.setInterval(function () {
+        updaate_coords()
+    }, 150)
+</script>
 </html>

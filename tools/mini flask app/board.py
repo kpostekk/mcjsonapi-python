@@ -1,4 +1,4 @@
-from flask import Flask, Response, json, render_template
+from flask import Flask, Response, json, render_template, redirect, url_for
 from mcjson_api import *
 from ruamel import yaml
 
@@ -42,8 +42,24 @@ def board_player(name):
                            player_food=player['foodLevel'],
                            player_op=player['op'],
                            player_uuid=player['uuid'],
-                           player_coords=player['location']
+                           player_coords=json.dumps(player['location'])
                            )
+
+
+@board.route('/kick/<name>')
+def board_kick(name):
+    worker.run_task(
+        MinecraftApiTask(api_conf['username'], api_conf['password'], 'players.name.kick', [name, 'You were kicked'])
+    )
+    return redirect(url_for('board_index'))
+
+
+@board.route('/plain/coords/<name>')
+def board_plain_coords(name):
+    coords = worker.run_task(
+        MinecraftApiTask(api_conf['username'], api_conf['password'], 'players.name', [name])
+    )['success']['location']
+    return Response(json.dumps(coords), mimetype='text/json')
 
 
 if __name__ == '__main__':

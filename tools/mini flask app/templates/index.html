@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>mini http</title>
-    <style>
-        body {
-            font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
-        }
-    </style>
+    {% include 'libs.html' %}
 </head>
 <body>
-<h2><a href="/json">JSON format players</a></h2>
-<h2><a href="/yaml">YAML format players</a></h2>
-{% for player in players %}
-    <p><a href="{{ url_for('board_player', name=player) }}">{{ player }}</a></p>
-{% endfor %}
+<div class="container">
+    <h1>There're {{ players.__len__() }} players</h1>
+    {% for player in players %}
+        <h4>
+            <a href="{{ url_for('board_player', name=player) }}" class="text-primary">{{ player }}</a>
+        </h4>
+        <p><a class="badge badge-danger" href="{{ url_for('board_kick', name=player) }}">Kick</a></p>
+    {% endfor %}
+    <p><a href="{{ url_for('board_json') }}">JSON format players</a>
+    <a href="{{ url_for('board_yaml') }}">YAML format players</a></p>
+</div>
 </body>
 </html>
