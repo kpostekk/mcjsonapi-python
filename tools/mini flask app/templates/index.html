@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mini http</title>
+    <style>
+        body {
+            font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+<h2><a href="/json">JSON format players</a></h2>
+<h2><a href="/yaml">YAML format players</a></h2>
+{% for player in players %}
+    <p><a href="{{ url_for('board_player', name=player) }}">{{ player }}</a></p>
+{% endfor %}
+</body>
+</html>
