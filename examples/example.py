@@ -1,6 +1,6 @@
 import json
 
-from mcapi import *
+from mcjson_api import *
 
 cnf_file = json.load(open('config.json'))
 login = cnf_file['username']
