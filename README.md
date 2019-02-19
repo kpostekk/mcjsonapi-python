@@ -3,4 +3,5 @@ A simple client for JSONAPI for bukkit, alternative for legacy SDK offered by pl
 
 ## [Orginal SDK](https://github.com/alecgorge/jsonapi/tree/master/sdk/py)
 
-### For examples look to examples lol
+## Examles
+[For examples look to examples dir lol](https://github.com/Backdoorek/mcjsonapi-python/tree/master/examples)
